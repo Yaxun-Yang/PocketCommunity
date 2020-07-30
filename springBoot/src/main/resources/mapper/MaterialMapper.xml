@@ -3,4 +3,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yyx.pocket.persistence.MaterialMapper">
 
+    <insert id="insertMaterial">
+        INSERT INTO material
+        VALUES (null, #{materialName}, #{origin}, #{destination}, #{transferStation});
+    </insert>
+
+    <delete id="deleteMaterial">
+        DELETE FROM material
+        WHERE materialId = #{materialId};
+    </delete>
+
+    <update id="updateMaterial">
+        UPDATE material
+        SET
+        materialName = #{materialName},
+        orgin = #{origin},
+        destination = #{destination},
+        transferStation = #{transferStation}
+        WHERE   materialId = #{materialId};
+    </update>
+
+    <select id="getRecentMaterialId" resultType="String">
+        SELECT materialId
+        FROM material
+        ORDER BY materialId DESC
+        LIMIT 1;
+    </select>
+
+    <select id="getMaterial" resultType="Material">
+        SELECT *
+        FROM material
+        WHERE materialId = #{materialId};
+    </select>
+
+    <select id="getMaterialList" resultType="Material">
+        SELECT *
+        FROM material;
+    </select>
+
 </mapper>

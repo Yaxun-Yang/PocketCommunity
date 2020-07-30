@@ -14,6 +14,5 @@ public class Message {
     private String messageId;
     private String userId;
     private String text;
-    private String reply;
     private Timestamp messageTimestamp;
 }

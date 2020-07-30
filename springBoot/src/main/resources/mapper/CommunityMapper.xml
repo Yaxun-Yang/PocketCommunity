@@ -3,4 +3,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yyx.pocket.persistence.CommunityMapper">
 
+    <insert id="insertActivity">
+        INSERT INTO activity
+        VALUES (null, #{text}, #{picture});
+    </insert>
+
+    <insert id="insertNotification">
+        INSERT INTO notification
+        VALUES (null, #{text});
+    </insert>
+
+    <delete id="deleteActivity">
+        DELETE FROM activity
+        WHERE activityId = #{activityId};
+    </delete>
+
+    <delete id="deleteNotification">
+        DELETE FROM notification
+        WHERE notificationId = #{notificatonId}
+    </delete>
+
+    <select id="getRecentActivity" resultType="String">
+        SELECT activityId
+        FROM activity
+        ORDER BY activityId DESC
+        LIMIT 1;
+    </select>
+
+    <select id="getRecentNotification" resultType="String">
+        SELECT notificationId
+        FROM notification
+        ORDER BY notificationId DESC
+        LIMIT 1;
+    </select>
+
+    <select id="getActivityList" resultType="Activity">
+        SELECT *
+        FROM activity;
+    </select>
+
+    <select id="getNotificationList" resultType="Notification">
+        SELECT *
+        FROM notification;
+    </select>
+
 </mapper>

@@ -3,4 +3,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yyx.pocket.persistence.QuestionnaireMapper">
 
+    <insert id="insertQuestionnaire">
+        INSERT questionnaire
+        VALUES (null, #{url});
+    </insert>
+
+    <delete id="deleteQuestionnaire">
+        DELETE FROM questionnaire
+        WHERE questionnaireId = #{questionnaireId};
+    </delete>
+
+    <select id="getRecentQuestionnaireId" resultType="String">
+        SELECT questionnaireId
+        FROM questionnaire
+        ORDER BY questionnaireId
+        LIMIT 1;
+    </select>
+
+    <select id="getQuestionnaireList" resultType="Questionnaire">
+        SELECT *
+        FROM questionnaire;
+    </select>
+
+
 </mapper>

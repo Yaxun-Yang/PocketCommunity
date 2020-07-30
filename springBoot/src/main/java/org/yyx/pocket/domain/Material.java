@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Material {
     private String materialId;
-    private String name;
+    private String materialName;
     private String origin;
     private String destination;
     private String transferStation;

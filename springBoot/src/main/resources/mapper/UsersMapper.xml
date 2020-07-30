@@ -3,4 +3,53 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yyx.pocket.persistence.UsersMapper">
 
+    <insert id="insertUser">
+        INSERT INTO users
+        VALUES (null, #{username}, #{password}, #{avatar}, #{idCartNum}, #{phoneNumber}, #{community}, #{address}, #{admin});
+    </insert>
+
+    <delete id="deleteUser">
+        DELETE FROM users
+        WHERE userId = #{userId};
+    </delete>
+
+    <update id="updateUser">
+        UPDATE users
+        SET
+        username = #{username},
+        password = #{password},
+        avatar = #{avatar},
+        idCartNum = #{idCartNum},
+        phoneNumber = #{phoneNumber},
+        community = #{community},
+        address = #{address},
+        address = #{address}
+        WHERE
+        userId = #{userId};
+    </update>
+
+    <select id="getRecentUserId" resultType="String">
+        SELECT userId
+        FROM users
+        ORDER BY userId DESC
+        LIMIT 1;
+    </select>
+
+    <select id="getUserByUsernameAndPassword" resultType="Users">
+        SELECT *
+        FROM users
+        WHERE username = #{username}
+        AND password = #{password};
+    </select>
+
+    <select id="getUser" resultType="Users">
+        SELECT *
+        FROM users
+        WHERE userId = #{userId};
+    </select>
+
+    <select id="getUserList" resultType="Users">
+        SELECT *
+        FROM users;
+    </select>
 </mapper>
