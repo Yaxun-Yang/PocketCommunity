@@ -20,8 +20,14 @@
 
     <delete id="deleteNotification">
         DELETE FROM notification
-        WHERE notificationId = #{notificatonId}
+        WHERE notificationId = #{notificatonId};
     </delete>
+
+    <update id="updatePicture">
+        UPDATE activity
+        SET picture = #{picture}
+        WHERE activityId = #{activityId};
+    </update>
 
     <select id="getRecentActivity" resultType="String">
         SELECT activityId

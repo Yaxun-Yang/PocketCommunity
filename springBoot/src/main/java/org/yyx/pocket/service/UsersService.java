@@ -26,6 +26,13 @@ public class UsersService {
         usersMapper.deleteUser(userId);
     }
 
+    public void updateAvatar(String userId, String avatar)
+    {
+        Users users = usersMapper.getUser(userId);
+        users.setAvatar(avatar);
+        usersMapper.updateUser(users);
+    }
+
     public void updateUser(Users users)
     {
         usersMapper.updateUser(users);
@@ -36,10 +43,6 @@ public class UsersService {
         return usersMapper.getUserByUsernameAndPassword(username, password);
     }
 
-    public Users getUser(String userId)
-    {
-        return usersMapper.getUser(userId);
-    }
 
     public List<Users> getUserList()
     {

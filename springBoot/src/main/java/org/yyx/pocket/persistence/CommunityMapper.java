@@ -13,6 +13,7 @@ public interface CommunityMapper {
     void insertNotification(Notification notification);
     void deleteActivity(String activityId);
     void deleteNotification(String notificationId);
+    void updatePicture(String activityId, String picture);
     String getRecentActivity();
     String getRecentNotification();
     List<Activity> getActivityList();

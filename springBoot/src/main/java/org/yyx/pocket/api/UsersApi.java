@@ -3,10 +3,12 @@ package org.yyx.pocket.api;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.yyx.pocket.domain.ResponseTemplate;
 import org.yyx.pocket.domain.Users;
 import org.yyx.pocket.service.UsersService;
 
+import java.io.File;
 
 
 @RestController
@@ -15,6 +17,24 @@ public class UsersApi {
 
     @Autowired
     private UsersService usersService;
+
+    @PostMapping("/avatar")
+    public ResponseTemplate uploadPicture(@RequestParam MultipartFile file , @RequestParam String userId) throws Exception
+    {
+        File temp = new File(new File("D:/Temp/avatar/a").getAbsolutePath()+"avatar_"+userId);
+        System.out.println(temp.getAbsolutePath());
+        System.out.println(userId);
+        if(!temp.exists())
+        {
+            temp.createNewFile();
+        }
+        file.transferTo(temp);
+        usersService.updateAvatar(userId,"avatar_"+userId);
+        return ResponseTemplate.builder()
+                .status(200)
+                .statusText("OK")
+                .build();
+    }
 
     @PostMapping("/user")
     public ResponseTemplate insertUser(@RequestBody JSONObject req)
@@ -87,10 +107,7 @@ public class UsersApi {
         users.setPassword(req.getString("password"));
         users.setAddress(req.getString("address"));
         users.setAdmin(req.getString("admin"));
-
-        //图片需要经过额外处理
-        users.setAvatar(req.getString("avatar"));
-
+        users.setAvatar("avatar.png");
         users.setCommunity(req.getString("community"));
         users.setIdCartNum(req.getString("idCartNum"));
         users.setPhoneNumber(req.getString("phoneNumber"));

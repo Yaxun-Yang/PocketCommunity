@@ -4,10 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.yyx.pocket.domain.Activity;
 import org.yyx.pocket.domain.Notification;
 import org.yyx.pocket.domain.ResponseTemplate;
 import org.yyx.pocket.service.CommunityService;
+
+import java.io.File;
 
 @RestController
 @RequestMapping("/community")
@@ -16,12 +19,29 @@ public class CommunityApi {
     @Autowired
     private CommunityService communityService;
 
+    @PostMapping("/picture")
+    public ResponseTemplate uploadPicture(@RequestParam MultipartFile file , @RequestParam String activityId) throws Exception
+    {
+        File temp = new File(new File("D:/Temp/activity/a").getAbsolutePath()+"activity_"+activityId);
+        System.out.println(temp.getAbsolutePath());
+        System.out.println(activityId);
+        if(!temp.exists())
+        {
+            temp.createNewFile();
+        }
+        file.transferTo(temp);
+        communityService.updatePicture(activityId,"activity_"+activityId);
+        return ResponseTemplate.builder()
+                .status(200)
+                .statusText("OK")
+                .build();
+    }
+
     @PostMapping("/activity")
     public ResponseTemplate insertActivity(@RequestBody JSONObject req)
     {
         Activity activity = new Activity();
         activity.setText(req.getString("text"));
-        activity.setPicture(req.getString("picture"));
 
         JSONObject data = new JSONObject();
         data.put("activityId", communityService.insertActivity(activity));

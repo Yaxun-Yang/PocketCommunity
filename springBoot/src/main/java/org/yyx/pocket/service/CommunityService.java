@@ -38,6 +38,11 @@ public class CommunityService {
         communityMapper.deleteNotification(notificationId);
     }
 
+    public void updatePicture(String activityId, String picture)
+    {
+        communityMapper.updatePicture(activityId, picture);
+    }
+
     public List<Activity> getActivityList()
     {
         return communityMapper.getActivityList();
