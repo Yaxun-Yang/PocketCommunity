@@ -34,7 +34,8 @@
 
     <select id="getMessageList" resultType="Message">
         SELECT *
-        FROM message;
+        FROM message
+        ORDER BY messageId DESC;
     </select>
 
 

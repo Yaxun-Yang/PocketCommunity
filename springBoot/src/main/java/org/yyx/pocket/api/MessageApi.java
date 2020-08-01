@@ -12,7 +12,7 @@ import org.yyx.pocket.service.MessageService;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+//留言模块相关api
 @RestController
 @RequestMapping("/message")
 public class MessageApi {
@@ -22,6 +22,7 @@ public class MessageApi {
     @Autowired
     private UsersMapper usersMapper;
 
+    //新建留言
     @PostMapping("/message")
     public ResponseTemplate insertMessage (@RequestBody JSONObject req)
     {
@@ -40,6 +41,7 @@ public class MessageApi {
                 .build();
     }
 
+    //删除一条留言
     @DeleteMapping("/message")
     public ResponseTemplate deleteMessage (@RequestParam String messageId)
     {
@@ -50,6 +52,7 @@ public class MessageApi {
                 .build();
     }
 
+    //修改一条留言
     @PutMapping("/message")
     public ResponseTemplate updateMessage(@RequestBody JSONObject req)
     {
@@ -64,6 +67,7 @@ public class MessageApi {
                 .build();
     }
 
+    //获取留言列表
     @GetMapping("/messageList")
     public ResponseTemplate getMessageList()
     {

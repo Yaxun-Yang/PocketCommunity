@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.yyx.pocket.domain.Questionnaire;
 import org.yyx.pocket.domain.ResponseTemplate;
 import org.yyx.pocket.service.QuestionnaireService;
-
+//问卷模块相关api
 @RestController
 @RequestMapping("/questionnaire")
 public class QuestionnaireApi {
@@ -15,6 +15,7 @@ public class QuestionnaireApi {
     @Autowired
     private QuestionnaireService questionnaireService;
 
+    //新建一个问卷
     @PostMapping("/questionnaire")
     public ResponseTemplate insertQuestionnaire(@RequestBody JSONObject req)
     {
@@ -31,6 +32,7 @@ public class QuestionnaireApi {
                 .build();
     }
 
+    //删除一个问卷
     @DeleteMapping("/questionnaire")
     public ResponseTemplate deleteQuestionnaire(@RequestParam String questionnaireId)
     {
@@ -41,6 +43,7 @@ public class QuestionnaireApi {
                 .build();
     }
 
+    //获取问卷列表
     @GetMapping("/questionnaireList")
     public ResponseTemplate getQuestionnaireList()
     {

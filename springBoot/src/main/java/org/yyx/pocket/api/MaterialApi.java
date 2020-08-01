@@ -7,7 +7,7 @@ import org.yyx.pocket.domain.Material;
 import org.yyx.pocket.domain.ResponseTemplate;
 import org.yyx.pocket.service.MaterialService;
 
-
+//物资模块相关api
 @RestController
 @RequestMapping("/material")
 public class MaterialApi {
@@ -16,6 +16,7 @@ public class MaterialApi {
     private MaterialService materialService;
 
 
+    //新建一个物资
     @PostMapping("/material")
     public ResponseTemplate insertMaterial(@RequestBody JSONObject req) {
         Material material = new Material();
@@ -35,6 +36,8 @@ public class MaterialApi {
                 .build();
     }
 
+
+    //删除一个物资
     @DeleteMapping("/material")
     public ResponseTemplate deleteMaterial(@RequestParam String materialId)
     {
@@ -45,6 +48,8 @@ public class MaterialApi {
                 .build();
     }
 
+
+    //修改一个物资相关信息
     @PutMapping("/material")
     public ResponseTemplate updateMaterial(@RequestBody JSONObject req)
     {
@@ -63,6 +68,7 @@ public class MaterialApi {
                 .build();
     }
 
+    //通过id获取物资相关信息
     @GetMapping("/material")
     public ResponseTemplate getMaterial(@RequestParam String materialId)
     {
@@ -76,6 +82,7 @@ public class MaterialApi {
                 .build();
     }
 
+    //获取物资列表
     @GetMapping("/materialList")
     public ResponseTemplate getMaterialList()
     {

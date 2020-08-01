@@ -11,7 +11,7 @@ import org.yyx.pocket.domain.ResponseTemplate;
 import org.yyx.pocket.service.CommunityService;
 
 import java.io.File;
-
+//社区模块相关api
 @RestController
 @RequestMapping("/community")
 public class CommunityApi {
@@ -19,6 +19,8 @@ public class CommunityApi {
     @Autowired
     private CommunityService communityService;
 
+
+    //上传或修改社区活动图片
     @PostMapping("/picture")
     public ResponseTemplate uploadPicture(@RequestParam MultipartFile file , @RequestParam String activityId) throws Exception
     {
@@ -37,6 +39,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //新建一个社区活动
     @PostMapping("/activity")
     public ResponseTemplate insertActivity(@RequestBody JSONObject req)
     {
@@ -53,6 +56,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //新建一个通知
     @PostMapping("/notification")
     public ResponseTemplate insertNotification(@RequestBody JSONObject req)
     {
@@ -69,6 +73,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //删除一个社区活动
     @DeleteMapping("/activity")
     public ResponseTemplate deleteActivity(@RequestParam String activityId)
     {
@@ -79,6 +84,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //删除一个通知
     @DeleteMapping("/notification")
     public ResponseTemplate deleteNotification(@RequestParam String notificationId)
     {
@@ -90,6 +96,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //修改社区活动文字
     @PutMapping("/activity")
     public ResponseTemplate updateActivity(@RequestBody JSONObject req)
     {
@@ -103,6 +110,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //修改通知
     @PutMapping("/notification")
     public ResponseTemplate updateNotification(@RequestBody JSONObject req)
     {
@@ -117,6 +125,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //获取社区活动列表
     @GetMapping("/activityList")
     public ResponseTemplate getActivityList()
     {
@@ -129,6 +138,7 @@ public class CommunityApi {
                 .build();
     }
 
+    //获取通知列表
     @GetMapping("/notificationList")
     public ResponseTemplate getNotificationList()
     {

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 
-
+//用户模块相关api
 @RestController
 @RequestMapping("/users")
 public class UsersApi {
@@ -21,6 +21,7 @@ public class UsersApi {
     @Autowired
     private UsersService usersService;
 
+    //发送验证码
     @PostMapping("/verifyCode")
     public ResponseTemplate sendVerificationCode(@RequestParam String phoneNumber, HttpServletRequest httpServletRequest)
     {
@@ -40,6 +41,7 @@ public class UsersApi {
 
     }
 
+    //上传或者更新头像
     @PostMapping("/avatar")
     public ResponseTemplate uploadPicture(@RequestParam MultipartFile file , @RequestParam String userId) throws Exception
     {
@@ -58,6 +60,7 @@ public class UsersApi {
                 .build();
     }
 
+    //注册用户
     @PostMapping("/user")
     public ResponseTemplate insertUser(@RequestBody JSONObject req, HttpServletRequest httpServletRequest)
     {
@@ -85,6 +88,7 @@ public class UsersApi {
                 .build();
     }
 
+    //注销用户
     @DeleteMapping("/user")
     public ResponseTemplate deleteUser(@RequestParam String userId)
     {
@@ -96,6 +100,7 @@ public class UsersApi {
                 .build();
     }
 
+    //修改用户信息
     @PutMapping("/user")
     public ResponseTemplate updateUser(@RequestBody JSONObject req, HttpServletRequest httpServletRequest)
     {
@@ -129,6 +134,7 @@ public class UsersApi {
                 .build();
     }
 
+    //通过id获取用户信息
     @GetMapping("/userInfo")
     public ResponseTemplate getUser(@RequestParam String userId)
     {
@@ -141,6 +147,7 @@ public class UsersApi {
                 .build();
     }
 
+    //验证用户名密码的正确性
     @GetMapping("/user")
     public ResponseTemplate getUserByUsernameAndPassword(@RequestParam String username, @RequestParam String password)
     {
@@ -153,6 +160,7 @@ public class UsersApi {
                 .build();
     }
 
+    //获取全部用户
     @GetMapping("/userList")
     public ResponseTemplate getUserList()
     {
@@ -164,6 +172,8 @@ public class UsersApi {
                 .statusText("OK")
                 .build();
     }
+
+    //填充用户信息
     private Users fillUsers(JSONObject req)
     {
 
