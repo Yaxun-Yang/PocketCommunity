@@ -29,6 +29,18 @@
         WHERE activityId = #{activityId};
     </update>
 
+    <update id="updateActivity">
+        UPDATE activity
+        SET text = #{text}
+        WHERE activityId = #{activityId};
+    </update>
+
+    <update id="updateNotification">
+        UPDATE notification
+        SET text = #{text}
+        WHERE notificationId = #{notificationId};
+    </update>
+
     <select id="getRecentActivity" resultType="String">
         SELECT activityId
         FROM activity

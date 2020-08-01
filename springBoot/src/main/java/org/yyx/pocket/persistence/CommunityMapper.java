@@ -14,6 +14,8 @@ public interface CommunityMapper {
     void deleteActivity(String activityId);
     void deleteNotification(String notificationId);
     void updatePicture(String activityId, String picture);
+    void updateActivity(String activityId, String text);
+    void updateNotification(Notification notification);
     String getRecentActivity();
     String getRecentNotification();
     List<Activity> getActivityList();

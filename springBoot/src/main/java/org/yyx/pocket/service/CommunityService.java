@@ -43,6 +43,15 @@ public class CommunityService {
         communityMapper.updatePicture(activityId, picture);
     }
 
+    public void updateActivity(String activityId, String text)
+    {
+        communityMapper.updateActivity(activityId, text);
+    }
+
+    public void updateNotification(Notification notification)
+    {
+        communityMapper.updateNotification(notification);
+    }
     public List<Activity> getActivityList()
     {
         return communityMapper.getActivityList();

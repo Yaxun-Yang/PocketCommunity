@@ -90,6 +90,33 @@ public class CommunityApi {
                 .build();
     }
 
+    @PutMapping("/activity")
+    public ResponseTemplate updateActivity(@RequestBody JSONObject req)
+    {
+        String activityId = req.getString("activityId");
+        String text = req.getString("text");
+
+        communityService.updateActivity(activityId, text);
+        return ResponseTemplate.builder()
+                .status(200)
+                .statusText("OK")
+                .build();
+    }
+
+    @PutMapping("/notification")
+    public ResponseTemplate updateNotification(@RequestBody JSONObject req)
+    {
+        Notification notification = new Notification();
+        notification.setNotificationId(req.getString("notificationId"));
+        notification.setText(req.getString("text"));
+
+        communityService.updateNotification(notification);
+        return ResponseTemplate.builder()
+                .status(200)
+                .statusText("OK")
+                .build();
+    }
+
     @GetMapping("/activityList")
     public ResponseTemplate getActivityList()
     {
