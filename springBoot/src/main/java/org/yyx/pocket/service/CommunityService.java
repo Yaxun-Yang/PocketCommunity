@@ -52,6 +52,12 @@ public class CommunityService {
     {
         communityMapper.updateNotification(notification);
     }
+
+    public List<Activity> getThreeActivityList()
+    {
+        return communityMapper.getThreeActivityList();
+    }
+
     public List<Activity> getActivityList()
     {
         return communityMapper.getActivityList();

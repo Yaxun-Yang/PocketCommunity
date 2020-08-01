@@ -55,6 +55,12 @@
         LIMIT 1;
     </select>
 
+    <select id="getThreeActivityList" resultType="Activity">
+        SELECT *
+        FROM activity
+        LIMIT 3;
+    </select>
+
     <select id="getActivityList" resultType="Activity">
         SELECT *
         FROM activity;

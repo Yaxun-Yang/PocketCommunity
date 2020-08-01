@@ -45,6 +45,7 @@ public class CommunityApi {
     {
         Activity activity = new Activity();
         activity.setText(req.getString("text"));
+        activity.setPicture("activity_default.png");
 
         JSONObject data = new JSONObject();
         data.put("activityId", communityService.insertActivity(activity));
@@ -120,6 +121,18 @@ public class CommunityApi {
 
         communityService.updateNotification(notification);
         return ResponseTemplate.builder()
+                .status(200)
+                .statusText("OK")
+                .build();
+    }
+
+    @GetMapping("/threeActivityList")
+    public ResponseTemplate getThreeActivityList()
+    {
+        JSONObject data = new JSONObject();
+        data.put("threeActivityList", communityService.getThreeActivityList());
+        return  ResponseTemplate.builder()
+                .data(data)
                 .status(200)
                 .statusText("OK")
                 .build();

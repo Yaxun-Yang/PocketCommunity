@@ -18,6 +18,7 @@ public interface CommunityMapper {
     void updateNotification(Notification notification);
     String getRecentActivity();
     String getRecentNotification();
+    List<Activity>getThreeActivityList();
     List<Activity> getActivityList();
     List<Notification> getNotificationList();
 }
