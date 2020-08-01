@@ -38,6 +38,11 @@ public class UsersService {
         usersMapper.updateUser(users);
     }
 
+    public Users getUser(String userId)
+    {
+        return usersMapper.getUser(userId);
+    }
+
     public Users getUsersByUsernameAndPassword(String username, String password)
     {
         return usersMapper.getUserByUsernameAndPassword(username, password);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.yyx.pocket.domain.Message;
 import org.yyx.pocket.domain.ResponseTemplate;
+import org.yyx.pocket.domain.Users;
 import org.yyx.pocket.persistence.UsersMapper;
 import org.yyx.pocket.service.MessageService;
 
@@ -72,8 +73,14 @@ public class MessageApi {
         for (int i=0;i<messageList.size();i++)
         {
             JSONObject messageShow = new JSONObject();
-            messageShow.put("message", messageList.get(i));
-            messageShow.put("user",usersMapper.getUser(messageList.get(i).getUserId()));
+            Message message = messageList.get(i);
+            Users users = usersMapper.getUser(message.getUserId());
+            messageShow.put("messageId",message.getMessageId());
+            messageShow.put("messageTimestamp",message.getMessageTimestamp());
+            messageShow.put("text",message.getText());
+            messageShow.put("username",users.getUsername());
+            messageShow.put("userId",users.getUserId());
+            messageShow.put("avatar",users.getAvatar());
             data.add(messageShow);
         }
 

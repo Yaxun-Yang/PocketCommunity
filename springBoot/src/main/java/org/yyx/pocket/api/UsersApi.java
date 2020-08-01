@@ -22,10 +22,9 @@ public class UsersApi {
     private UsersService usersService;
 
     @PostMapping("/verifyCode")
-    public ResponseTemplate sendVerificationCode(@RequestBody JSONObject req, HttpServletRequest httpServletRequest)
+    public ResponseTemplate sendVerificationCode(@RequestParam String phoneNumber, HttpServletRequest httpServletRequest)
     {
 
-        String phoneNumber = req.getString("phoneNumber");
 
         //此处仅为模拟短信发送
          String code = "188234";
@@ -70,7 +69,7 @@ public class UsersApi {
 
         JSONObject data = new JSONObject();
 
-        if(!code.equals(userCode))
+        if(code==null||!code.equals(userCode))
         {
             data.put("userId",null);
         }
@@ -109,10 +108,11 @@ public class UsersApi {
 
         JSONObject data = new JSONObject();
 
-        if(!code.equals(userCode))
+        if(code==null||!code.equals(userCode))
         {
             data.put("userId",null);
         }
+        else
         {
             Users users = fillUsers(req);
             String userId = req.getString("userId");
@@ -123,6 +123,19 @@ public class UsersApi {
             data.put("userId",userId);
         }
         return ResponseTemplate.builder()
+                .data(data)
+                .status(200)
+                .statusText("OK")
+                .build();
+    }
+
+    @GetMapping("/userInfo")
+    public ResponseTemplate getUser(@RequestParam String userId)
+    {
+        JSONObject data = new JSONObject();
+        data.put("user",usersService.getUser(userId));
+        return ResponseTemplate.builder()
+                .data(data)
                 .status(200)
                 .statusText("OK")
                 .build();
