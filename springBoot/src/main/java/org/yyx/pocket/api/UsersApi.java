@@ -1,5 +1,6 @@
 package org.yyx.pocket.api;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,8 @@ import org.yyx.pocket.domain.ResponseTemplate;
 import org.yyx.pocket.domain.Users;
 import org.yyx.pocket.service.UsersService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 
 
@@ -17,6 +20,26 @@ public class UsersApi {
 
     @Autowired
     private UsersService usersService;
+
+    @PostMapping("/verifyCode")
+    public ResponseTemplate sendVerificationCode(@RequestBody JSONObject req, HttpServletRequest httpServletRequest)
+    {
+
+        String phoneNumber = req.getString("phoneNumber");
+
+        //此处仅为模拟短信发送
+         String code = "188234";
+
+        //此处为真实的短信发送
+       // String code= SmsService.sendSms(phoneNumber);
+        System.out.println("成功发送短信给"+phoneNumber+"，验证码为"+code);
+        httpServletRequest.getSession().setAttribute("code",code);
+        return ResponseTemplate.builder()
+                .status(200)
+                .statusText("OK")
+                .build();
+
+    }
 
     @PostMapping("/avatar")
     public ResponseTemplate uploadPicture(@RequestParam MultipartFile file , @RequestParam String userId) throws Exception
@@ -37,12 +60,24 @@ public class UsersApi {
     }
 
     @PostMapping("/user")
-    public ResponseTemplate insertUser(@RequestBody JSONObject req)
+    public ResponseTemplate insertUser(@RequestBody JSONObject req, HttpServletRequest httpServletRequest)
     {
-        Users users = fillUsers(req);
+        HttpSession session = httpServletRequest.getSession();
+        String code =(String) session.getAttribute("code");
+        session.setAttribute("code",null);
+
+        String userCode = req.getString("verifyCode");
 
         JSONObject data = new JSONObject();
-        data.put("userId", usersService.insertUser(users));
+
+        if(!code.equals(userCode))
+        {
+            data.put("userId",null);
+        }
+        else {
+            Users users = fillUsers(req);
+            data.put("userId", usersService.insertUser(users));
+        }
 
         return ResponseTemplate.builder()
                 .data(data)
@@ -63,14 +98,30 @@ public class UsersApi {
     }
 
     @PutMapping("/user")
-    public ResponseTemplate updateUser(@RequestBody JSONObject req)
+    public ResponseTemplate updateUser(@RequestBody JSONObject req, HttpServletRequest httpServletRequest)
     {
 
-        Users users = fillUsers(req);
-        users.setUserId(req.getString("userId"));
+        HttpSession session = httpServletRequest.getSession();
+        String code =(String) session.getAttribute("code");
+        session.setAttribute("code",null);
 
-        usersService.updateUser(users);
+        String userCode = req.getString("verifyCode");
 
+        JSONObject data = new JSONObject();
+
+        if(!code.equals(userCode))
+        {
+            data.put("userId",null);
+        }
+        {
+            Users users = fillUsers(req);
+            String userId = req.getString("userId");
+            users.setUserId(userId);
+
+            usersService.updateUser(users);
+
+            data.put("userId",userId);
+        }
         return ResponseTemplate.builder()
                 .status(200)
                 .statusText("OK")
@@ -102,6 +153,7 @@ public class UsersApi {
     }
     private Users fillUsers(JSONObject req)
     {
+
         Users users = new Users();
         users.setUsername(req.getString("username"));
         users.setPassword(req.getString("password"));
@@ -111,7 +163,6 @@ public class UsersApi {
         users.setCommunity(req.getString("community"));
         users.setIdCartNum(req.getString("idCartNum"));
         users.setPhoneNumber(req.getString("phoneNumber"));
-
         return users;
     }
 }
