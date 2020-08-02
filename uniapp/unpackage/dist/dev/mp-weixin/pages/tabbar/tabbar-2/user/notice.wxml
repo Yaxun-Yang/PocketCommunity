@@ -1,0 +1,1 @@
+<view class="notice"><view style="text-align:center;font-size:25px;padding-top:20px;margin-bottom:20px;">社区通知</view><block wx:for="{{notification}}" wx:for-item="notice" wx:for-index="index" wx:key="notificationId"><view class="hei"><view class="id">{{'通知'+notice.notificationId+''}}</view><view class="num">{{''+notice.text+''}}</view></view></block></view>

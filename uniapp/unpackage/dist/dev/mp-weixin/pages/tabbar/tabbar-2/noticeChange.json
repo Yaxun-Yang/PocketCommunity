@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "修改通知板",
+  "usingComponents": {
+    "u-toast": "/uview-ui/components/u-toast/u-toast",
+    "u-input": "/uview-ui/components/u-input/u-input",
+    "u-button": "/uview-ui/components/u-button/u-button"
+  }
+}

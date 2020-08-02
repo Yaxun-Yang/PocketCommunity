@@ -1,0 +1,29 @@
+
+.que {
+	background-color: #dedede;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+	height: 1000px;
+}
+.new {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.one {
+	background-color: #FFFFFF;
+	margin-top: 10px;
+}
+.num {
+	padding-left: 6px;
+	margin-top: 40px;
+}
+.three {
+	padding-left: 90px;
+}
+.bubu {
+	width: 20px;
+	height: 20px;
+	font-size: 10px;
+}
+

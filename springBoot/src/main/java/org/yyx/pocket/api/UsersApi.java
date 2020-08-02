@@ -45,15 +45,14 @@ public class UsersApi {
     @PostMapping("/avatar")
     public ResponseTemplate uploadPicture(@RequestParam MultipartFile file , @RequestParam String userId) throws Exception
     {
-        File temp = new File(new File("D:/Temp/avatar/a").getAbsolutePath()+"avatar_"+userId);
-        System.out.println(temp.getAbsolutePath());
-        System.out.println(userId);
+        String filePath = "avatar_"+userId+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+        File temp = new File("D://Temp//avatar//"+filePath);
         if(!temp.exists())
         {
             temp.createNewFile();
         }
         file.transferTo(temp);
-        usersService.updateAvatar(userId,"avatar_"+userId);
+        usersService.updateAvatar(userId,"http://localhost:8099/api/file/avatar/"+filePath);
         return ResponseTemplate.builder()
                 .status(200)
                 .statusText("OK")
@@ -182,7 +181,7 @@ public class UsersApi {
         users.setPassword(req.getString("password"));
         users.setAddress(req.getString("address"));
         users.setAdmin(req.getString("admin"));
-        users.setAvatar("avatar.png");
+        users.setAvatar("/static/avatar.png");
         users.setCommunity(req.getString("community"));
         users.setIdCartNum(req.getString("idCartNum"));
         users.setPhoneNumber(req.getString("phoneNumber"));

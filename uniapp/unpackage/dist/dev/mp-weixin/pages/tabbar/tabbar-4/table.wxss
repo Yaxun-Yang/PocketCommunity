@@ -1,0 +1,22 @@
+
+.table{
+		height: 623px;
+
+/* 	background-color: #dadada; */
+}
+.swiper-box {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+			height: 100%;
+}
+.swiper-item {
+	height: 100%;
+}
+.onetable{
+	height: 600px;
+}
+.one-table{
+		height: 600px;
+}
+

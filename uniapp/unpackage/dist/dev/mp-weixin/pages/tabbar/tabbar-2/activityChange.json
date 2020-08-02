@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "修改社区活动",
+  "usingComponents": {
+    "u-toast": "/uview-ui/components/u-toast/u-toast",
+    "u-form": "/uview-ui/components/u-form/u-form",
+    "u-form-item": "/uview-ui/components/u-form-item/u-form-item",
+    "u-row": "/uview-ui/components/u-row/u-row",
+    "u-col": "/uview-ui/components/u-col/u-col",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-input": "/uview-ui/components/u-input/u-input"
+  }
+}

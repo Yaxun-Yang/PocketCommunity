@@ -24,7 +24,8 @@ public class CommunityApi {
     @PostMapping("/picture")
     public ResponseTemplate uploadPicture(@RequestParam MultipartFile file , @RequestParam String activityId) throws Exception
     {
-        File temp = new File(new File("D:/Temp/activity/a").getAbsolutePath()+"activity_"+activityId);
+        String filePath = "activity_"+activityId+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+        File temp = new File("D://Temp//activity//"+filePath);
         System.out.println(temp.getAbsolutePath());
         System.out.println(activityId);
         if(!temp.exists())
@@ -32,7 +33,7 @@ public class CommunityApi {
             temp.createNewFile();
         }
         file.transferTo(temp);
-        communityService.updatePicture(activityId,"activity_"+activityId);
+        communityService.updatePicture(activityId,"http://localhost:8099/api/file/activity/"+filePath);
         return ResponseTemplate.builder()
                 .status(200)
                 .statusText("OK")
@@ -45,7 +46,7 @@ public class CommunityApi {
     {
         Activity activity = new Activity();
         activity.setText(req.getString("text"));
-        activity.setPicture("activity_default.png");
+        activity.setPicture("/static/activity.jpg");
 
         JSONObject data = new JSONObject();
         data.put("activityId", communityService.insertActivity(activity));
