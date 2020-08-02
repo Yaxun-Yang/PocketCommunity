@@ -22,7 +22,7 @@
 					<u-input :border="true" placeholder="请输入手机号" v-model="form.phoneNumber" type="number"></u-input>
 				</u-form-item>
 				<u-form-item label="验证码" prop="verifyCode" label-width="150">
-					<u-input :border="true" placeholder="请输入验证码" v-model="form.verifyCode" type="text"></u-input>
+					<u-input :border="true" placeholder="请输入验证码" v-model="form.verifyCode" type=""></u-input>
 					<u-button slot="right" type="success" size="mini" @click="getCode">{{codeTips}}</u-button>
 				</u-form-item>
 				<u-form-item label="密码" prop="password" label-width="150">
@@ -187,7 +187,7 @@
 										url: '/pages/tabbar/tabbar-1/login'
 									})
 								}else if(res.data.data.userId === null){
-									//验证码正确
+									//验证码错误
 									this.$refs.uToast.show({
 										position: 'top',
 										title: '验证码错误，请重试',

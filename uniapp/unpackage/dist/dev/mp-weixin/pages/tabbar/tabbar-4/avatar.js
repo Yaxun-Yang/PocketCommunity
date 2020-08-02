@@ -186,11 +186,11 @@ var _default =
   computed: {
     //获取权限
     admin: function admin() {
-      return sessionStorage.getItem('admin');
+      return uni.getStorageSync('admin');
     },
     //获取用户id
     userId: function userId() {
-      return sessionStorage.getItem('userId');
+      return uni.getStorageSync('userId');
     } },
 
   methods: {

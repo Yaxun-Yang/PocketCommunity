@@ -68,10 +68,14 @@ public class UsersApi {
         session.setAttribute("code",null);
 
         String userCode = req.getString("verifyCode");
+       // System.out.println(userCode+" "+code);
 
         JSONObject data = new JSONObject();
 
-        if(code==null||!code.equals(userCode))
+        //模拟验证码
+        if(!userCode.equals("188234"))
+        //真实验证码
+//        if(code==null||!code.equals(userCode))
         {
             data.put("userId",null);
         }
@@ -112,8 +116,12 @@ public class UsersApi {
 
         JSONObject data = new JSONObject();
 
-        if(code==null||!code.equals(userCode))
+        //虚拟验证码
+        if(!userCode.equals("188234"))
+        //真实验证码
+      // if(code==null||!code.equals(userCode))
         {
+            System.out.println(userCode);
             data.put("userId",null);
         }
         else

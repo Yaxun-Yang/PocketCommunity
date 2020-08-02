@@ -11,7 +11,7 @@
 				<image class="u-avatar-demo" :src="avatar" mode="aspectFill"></image>
 			</view>
 			<view style="font-size: 26px;padding-bottom: 20px;padding-top: 20px;">
-				关关子
+				修改头像
 			</view>
 
 		</view>
@@ -26,7 +26,7 @@
 	export default {
 		data() {
 			return {
-				avatar:  '/static/avatar.png',
+				avatar:'/static/avatar.png',
 			}
 		},
 		created() {
@@ -50,11 +50,11 @@
 		computed: {
 			//获取权限
 			admin() {
-				return sessionStorage.getItem('admin');
+				return uni.getStorageSync('admin');
 			},
 			//获取用户id
 			userId() {
-				return sessionStorage.getItem('userId');
+				return uni.getStorageSync('userId');
 			},
 		},
 		methods: {

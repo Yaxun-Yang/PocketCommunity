@@ -194,6 +194,7 @@ var _default =
     return {
       codeTips: '获取验证码',
       form: {
+        userId: '',
         username: '',
         idCartNum: '',
         community: '',
@@ -202,8 +203,8 @@ var _default =
         verifyCode: '',
         password: '',
         rePassword: '',
-        admin: '',
-        avatar: '' },
+        admin: 'N',
+        avatar: '01.jpg' },
 
       rules: {
         username: [{
@@ -250,7 +251,7 @@ var _default =
 
 
         verifyCode: [{
-          required: true,
+          //	required: true,
           message: '请输入验证码',
           trigger: ['change', 'blur'] },
 
@@ -273,14 +274,14 @@ var _default =
 
 
         rePassword: [{
-          required: true,
+          //required: true,
           message: '请重新输入密码',
           trigger: ['change', 'blur'] },
 
         {
-          validator: function validator(rule, value, callback) {
-            return value === _this.form.password;
-          },
+          // validator: (rule, value, callback) => {
+          // 	return value == this.form.password;
+          // },
           message: '两次输入的密码不相等',
           trigger: ['change', 'blur'] }] } };
 
@@ -292,7 +293,7 @@ var _default =
     this.getUser();
   },
   onLoad: function onLoad() {
-    this.getUser();
+    //this.getUser();
   },
   // 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
   onReady: function onReady() {
@@ -319,15 +320,10 @@ var _default =
         } });
 
     },
-
-    //得到验证码
     getCode: function getCode() {var _this3 = this;
       uni.request({
-        url: this.apiServer + '/users/verifyCode',
+        url: this.apiServer + '/users/verifyCode?phoneNumber=' + this.form.phoneNumber,
         method: 'POST',
-        data: {
-          phoneNumber: this.form.phoneNumber },
-
         header: {
           'content-type': 'application/json' },
 
@@ -341,7 +337,6 @@ var _default =
         } });
 
     },
-    //修改信息
     setUser: function setUser() {var _this4 = this;
       this.$refs.uForm.validate(function (valid) {
         if (valid) {
@@ -358,17 +353,17 @@ var _default =
                 //验证码正确
                 _this4.$refs.uToast.show({
                   position: 'top',
-                  title: '注册成功，请登录',
+                  title: '修改成功',
                   type: 'success',
-                  url: '/pages/tabbar/tabbar-1/login' });
+                  url: '/pages/tabbar/tabbar-4/tabbar-4' });
 
               } else if (res.data.data.userId === null) {
-                //验证码正确
+                //验证码错误
                 _this4.$refs.uToast.show({
                   position: 'top',
-                  title: '验证码错误，请重试',
+                  title: '修改失败，请重试',
                   type: 'error',
-                  url: '/pages/tabbar/tabbar-1/sign' });
+                  url: '/pages/tabbar/tabbar-4/tabbar-4' });
 
               }
             } });

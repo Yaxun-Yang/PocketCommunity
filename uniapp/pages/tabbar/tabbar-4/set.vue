@@ -22,7 +22,7 @@
 					<u-input :border="true" placeholder="请输入手机号" v-model="form.phoneNumber" type="number"></u-input>
 				</u-form-item>
 				<u-form-item label="验证码" prop="verifyCode" label-width="150">
-					<u-input :border="true" placeholder="请输入验证码" v-model="form.verifyCode" type="text"></u-input>
+					<u-input :border="true" placeholder="请输入验证码" v-model="form.verifyCode" type="number"></u-input>
 					<u-button slot="right" type="success" size="mini" @click="getCode">{{codeTips}}</u-button>
 				</u-form-item>
 				<u-form-item label="密码" prop="password" label-width="150">
@@ -46,6 +46,7 @@
 			return {
 				codeTips: '获取验证码',
 				form: {
+					userId:'',
 					username: '',
 					idCartNum: '',
 					community: '',
@@ -54,8 +55,8 @@
 					verifyCode: '',
 					password: '',
 					rePassword: '',
-					admin: '',
-					avatar: ''
+					admin: 'N',
+					avatar: '01.jpg'
 				},
 				rules: {
 					username: [{
@@ -102,7 +103,7 @@
 						}
 					],
 					verifyCode: [{
-							required: true,
+						//	required: true,
 							message: '请输入验证码',
 							trigger: ['change', 'blur'],
 						},
@@ -125,14 +126,14 @@
 						}
 					],
 					rePassword: [{
-							required: true,
+							//required: true,
 							message: '请重新输入密码',
 							trigger: ['change', 'blur'],
 						},
 						{
-							validator: (rule, value, callback) => {
-								return value === this.form.password;
-							},
+							// validator: (rule, value, callback) => {
+							// 	return value == this.form.password;
+							// },
 							message: '两次输入的密码不相等',
 							trigger: ['change', 'blur'],
 						}
@@ -144,7 +145,7 @@
 			this.getUser();
 		},
 		onLoad() {
-			this.getUser();
+			//this.getUser();
 		},
 		// 必须要在onReady生命周期，因为onLoad生命周期组件可能尚未创建完毕
 		onReady() {
@@ -171,15 +172,10 @@
 					}
 				});
 			},
-
-			//得到验证码
 			getCode() {
 				uni.request({
-					url: this.apiServer + '/users/verifyCode',
+					url: this.apiServer + '/users/verifyCode?phoneNumber=' + this.form.phoneNumber,
 					method: 'POST',
-					data: {
-						phoneNumber: this.form.phoneNumber
-					},
 					header: {
 						'content-type': 'application/json'
 					},
@@ -193,7 +189,6 @@
 					}
 				});
 			},
-			//修改信息
 			setUser() {
 				this.$refs.uForm.validate(valid => {
 					if (valid) {
@@ -210,17 +205,17 @@
 									//验证码正确
 									this.$refs.uToast.show({
 										position: 'top',
-										title: '注册成功，请登录',
+										title: '修改成功',
 										type: 'success',
-										url: '/pages/tabbar/tabbar-1/login'
+										url: '/pages/tabbar/tabbar-4/tabbar-4'
 									})
 								}else if(res.data.data.userId === null){
-									//验证码正确
+									//验证码错误
 									this.$refs.uToast.show({
 										position: 'top',
-										title: '验证码错误，请重试',
+										title: '修改失败，请重试',
 										type: 'error',
-										url: '/pages/tabbar/tabbar-1/sign'
+										url: '/pages/tabbar/tabbar-4/tabbar-4'
 									})
 								}
 							}

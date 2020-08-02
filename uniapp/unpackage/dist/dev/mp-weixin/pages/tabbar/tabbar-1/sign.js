@@ -335,7 +335,7 @@ var _default =
                   url: '/pages/tabbar/tabbar-1/login' });
 
               } else if (res.data.data.userId === null) {
-                //验证码正确
+                //验证码错误
                 _this3.$refs.uToast.show({
                   position: 'top',
                   title: '验证码错误，请重试',
